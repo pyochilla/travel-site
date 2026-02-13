@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가족같은여행 · Home Sweet Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Sans+Thai:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F7F1E8;--warm:#E8D5B0;--parchment:#EDE4D3;--terracotta:#C1540C;--gold:#BF9540;--deep:#1A1108;--muted:#6B5C3E;--white:#FDFAF5;--nav-h:68px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR','Noto Sans Thai',sans-serif;font-weight:300;background:var(--cream);color:var(--deep);overflow-x:hidden}
+img{display:block;max-width:100%}a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 4%;background:rgba(247,241,232,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(191,149,64,0.2);transition:box-shadow .3s;gap:16px}
+nav.scrolled{box-shadow:0 4px 32px rgba(26,17,8,0.08)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:19px;font-style:italic;color:var(--deep);white-space:nowrap;flex-shrink:0}
+.nav-logo span{color:var(--terracotta)}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;flex:1;justify-content:center}
+.nav-links a{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--terracotta)}
+.nav-cta{background:var(--terracotta)!important;color:var(--white)!important;padding:9px 18px!important;border-radius:2px;font-weight:500!important;text-transform:none!important;letter-spacing:0.5px!important;transition:background .2s!important}
+.nav-cta:hover{background:#a04209!important}
+.lang-switcher{display:flex;gap:4px;flex-shrink:0}
+.lang-btn{padding:5px 9px;font-size:11px;font-family:'Noto Sans KR',sans-serif;border:1px solid var(--warm);border-radius:2px;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap}
+.lang-btn:hover{border-color:var(--terracotta);color:var(--terracotta)}
+.lang-btn.active{background:var(--terracotta);color:white;border-color:var(--terracotta)}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;flex-shrink:0}
+.nav-burger span{display:block;width:24px;height:1.5px;background:var(--deep);transition:all .3s}
+
+/* HERO */
+#home{min-height:100vh;padding-top:var(--nav-h);display:grid;grid-template-columns:1fr 1fr;align-items:center;overflow:hidden}
+.hero-text{padding:80px 6% 80px 8%;position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;animation:riseIn .8s .3s forwards}
+.hero-tag::before{content:'';width:32px;height:1px;background:var(--gold)}
+.hero-text h1{font-family:'Playfair Display',serif;font-size:clamp(34px,4.5vw,64px);line-height:1.08;font-weight:700;color:var(--deep);margin-bottom:24px;opacity:0;animation:riseIn .9s .5s forwards}
+.hero-text h1 em{font-style:italic;color:var(--terracotta);display:block}
+.hero-text>p{font-size:15px;line-height:1.9;color:var(--muted);max-width:440px;margin-bottom:36px;opacity:0;animation:riseIn .9s .7s forwards}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:riseIn .9s .9s forwards}
+.btn-primary{background:var(--terracotta);color:var(--white);padding:13px 28px;font-size:14px;font-family:inherit;border:none;border-radius:2px;cursor:pointer;transition:background .2s,transform .2s}
+.btn-primary:hover{background:#a04209;transform:translateY(-2px)}
+.btn-secondary{background:transparent;color:var(--deep);padding:13px 28px;font-size:14px;font-family:inherit;border:1px solid var(--warm);border-radius:2px;cursor:pointer;transition:border-color .2s,transform .2s}
+.btn-secondary:hover{border-color:var(--terracotta);transform:translateY(-2px)}
+.hero-flags{margin-top:44px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;opacity:0;animation:riseIn .9s 1.1s forwards}
+.flag-badge{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--white);border:1px solid var(--warm);border-radius:2px;font-size:12px;color:var(--muted)}
+.flag-badge span{font-size:18px}
+.hero-divider{color:var(--warm);font-size:20px}
+.hero-visual{height:100vh;position:relative;overflow:hidden}
+.photo-grid{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px}
+.photo-cell{overflow:hidden}
+.photo-cell:nth-child(1){background:linear-gradient(135deg,#d4956a,#b06840)}
+.photo-cell:nth-child(2){background:linear-gradient(135deg,#7a9e4e,#4a7a2e)}
+.photo-cell:nth-child(3){background:linear-gradient(135deg,#4a6fa5,#2a4f85)}
+.photo-cell:nth-child(4){background:linear-gradient(135deg,#c4805a,#984030)}
+.photo-cell-label{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:rgba(255,255,255,.6);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.photo-cell-label .icon{font-size:28px;opacity:.7}
+.hero-caption{position:absolute;bottom:32px;left:32px;right:32px;z-index:2}
+.hero-caption p{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,.9);line-height:1.5}
+.hero-caption small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:4px;display:block}
+
+/* STRIP */
+.strip{background:var(--deep);padding:18px 8%;display:flex;gap:36px;justify-content:center;flex-wrap:wrap;align-items:center}
+.strip-item{display:flex;align-items:center;gap:10px;color:rgba(247,241,232,.6);font-size:13px}
+.strip-item span{font-size:18px}
+
+/* SECTIONS */
+.section{padding:96px 8%;max-width:1200px;margin:0 auto}
+.section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,50px);font-weight:700;line-height:1.15;color:var(--deep);margin-bottom:18px}
+.section-title em{color:var(--terracotta);font-style:italic}
+.section-lead{font-size:15px;line-height:1.9;color:var(--muted);max-width:580px;margin-bottom:52px}
+.divider-line{border:none;border-top:1px solid var(--warm)}
+
+/* ABOUT */
+#about{background:var(--white)}
+#about .section{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-main-img{width:100%;aspect-ratio:4/5;background:linear-gradient(160deg,#c4956a 0%,#7a4f2e 60%,#3a2010 100%);border-radius:2px;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:rgba(255,255,255,.5);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.about-main-img .big-icon{font-size:48px;opacity:.6}
+.about-badge{position:absolute;bottom:-24px;right:-24px;background:var(--terracotta);color:white;padding:20px 24px;border-radius:2px;text-align:center}
+.about-badge .num{font-family:'Playfair Display',serif;font-size:36px;font-style:italic;display:block;line-height:1}
+.about-badge small{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.8}
+.features{display:flex;flex-direction:column;gap:26px;margin-top:40px}
+.feature{display:flex;gap:18px;align-items:flex-start}
+.feature-icon{width:44px;height:44px;background:var(--parchment);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.feature h4{font-family:'Noto Serif KR',serif;font-size:14px;font-weight:700;margin-bottom:5px;color:var(--deep)}
+.feature p{font-size:13px;line-height:1.8;color:var(--muted)}
+
+/* FAMILY */
+.family-intro{display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start}
+.family-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px}
+.family-card{background:var(--white);border:1px solid var(--warm);border-radius:2px;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.family-card:hover{transform:translateY(-8px);box-shadow:0 24px 56px rgba(26,17,8,.1)}
+.family-card-img{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:rgba(255,255,255,.5);font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.family-card-img .icon{font-size:40px;opacity:.6}
+.card-img-1{background:linear-gradient(160deg,#c4956a,#7a4f2e)}
+.card-img-2{background:linear-gradient(160deg,#7a9e4e,#3a6e1e)}
+.card-img-3{background:linear-gradient(160deg,#c4805a,#844030)}
+.family-card-body{padding:20px 18px}
+.family-card-body h3{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;margin-bottom:3px;color:var(--deep)}
+.family-card-role{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block}
+.family-card-body p{font-size:12.5px;line-height:1.8;color:var(--muted)}
+
+/* HOW */
+#how{background:var(--deep);padding:100px 0}
+#how .section{max-width:1200px}
+#how .section-label{color:rgba(191,149,64,.8)}
+#how .section-title{color:var(--cream)}
+#how .section-lead{color:rgba(247,241,232,.6)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:60px;position:relative}
+.steps::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:1px;background:rgba(191,149,64,.3);z-index:0}
+.step{text-align:center;padding:0 16px;position:relative;z-index:1}
+.step-num{width:56px;height:56px;background:var(--terracotta);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:white;margin:0 auto 22px;border:3px solid var(--deep)}
+.step h4{font-family:'Noto Serif KR',serif;font-size:14px;font-weight:700;color:var(--cream);margin-bottom:8px}
+.step p{font-size:12.5px;line-height:1.8;color:rgba(247,241,232,.5)}
+
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px;gap:8px;margin-bottom:72px}
+.gallery-item{border-radius:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:rgba(255,255,255,.4);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:opacity .3s}
+.gallery-item:hover{opacity:.85}
+.gallery-item .gal-icon{font-size:28px;opacity:.5}
+.gallery-item:nth-child(1){grid-row:1/3;background:linear-gradient(160deg,#d4a070,#8a5030)}
+.gallery-item:nth-child(2){background:linear-gradient(160deg,#7ab870,#3a8830)}
+.gallery-item:nth-child(3){background:linear-gradient(160deg,#70a0c4,#3060a0)}
+.gallery-item:nth-child(4){background:linear-gradient(160deg,#c4a060,#907020)}
+.gallery-item:nth-child(5){background:linear-gradient(160deg,#c47060,#904030)}
+.reviews-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;text-align:center}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.review-card{background:var(--white);border:1px solid var(--warm);border-radius:2px;padding:26px 22px;position:relative;transition:transform .2s}
+.review-card:hover{transform:translateY(-4px)}
+.review-card::before{content:'"';position:absolute;top:12px;right:18px;font-family:'Playfair Display',serif;font-size:60px;color:var(--warm);line-height:1}
+.review-stars{color:var(--gold);font-size:12px;margin-bottom:12px;letter-spacing:2px}
+.review-card p{font-size:13px;line-height:1.9;color:var(--muted);margin-bottom:18px}
+.reviewer{display:flex;align-items:center;gap:12px;padding-top:14px;border-top:1px solid var(--warm)}
+.reviewer-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.av1{background:linear-gradient(135deg,#ffd6b0,#ffaa70)}
+.av2{background:linear-gradient(135deg,#b0d4ff,#70aaff)}
+.av3{background:linear-gradient(135deg,#d0ffb0,#90e060)}
+.reviewer-info strong{display:block;font-size:12px;font-weight:500;color:var(--deep)}
+.reviewer-info small{font-size:11px;color:var(--muted)}
+
+/* BOOKING */
+/* booking section */
+#booking{
+  background:var(--parchment);
+  padding:80px 0 80px;            /* 위아래 여백 확실히 */
+  border-top:1px solid rgba(0,0,0,0.06);
+}
+
+/* 2-column layout (기존 유지) */
+#booking .section{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:72px;
+  align-items:start;
+}
+
+/* ✅ 핵심: booking-info 안의 요소가 겹치지 않게 세로 스택 */
+#booking .booking-info{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:16px;
+}
+
+/* CTA 문구 */
+#booking .book-cta{
+  margin:0;
+  line-height:1.6;
+}
+
+/* 옵션들(있을 때만 보이는 영역) */
+.booking-options{
+  margin-top:20px;                /* 36px -> 20px (CTA와 자연스럽게) */
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.booking-option{
+  background:var(--white);
+  border:1px solid var(--warm);
+  border-radius:2px;
+  padding:18px;
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  cursor:pointer;
+  transition:border-color .2s;
+}
+.booking-option:hover{border-color:var(--terracotta)}
+.booking-option.active{border-color:var(--terracotta);background:rgba(193,84,12,.04)}
+.bo-icon{font-size:22px;flex-shrink:0}
+.bo-text h4{font-family:'Noto Serif KR',serif;font-size:13px;font-weight:700;color:var(--deep);margin-bottom:3px}
+.bo-text p{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* form card (기존 유지) */
+.booking-form{
+  background:var(--white);
+  border:1px solid var(--warm);
+  border-radius:2px;
+  padding:36px 32px;
+}
+.booking-form h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--deep);margin-bottom:6px}
+.booking-form .form-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:500}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;background:var(--cream);border:1px solid var(--warm);border-radius:2px;font-family:inherit;font-size:14px;color:var(--deep);outline:none;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--terracotta);background:var(--white)}
+.form-group textarea{resize:vertical;min-height:90px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ✅ 핵심: .form-submit이 a/button 둘 다 안전하게 동작하도록 */
+.form-submit{
+  position:static !important;     /* 어떤 absolute/transform 영향도 차단 */
+  display:inline-block;           /* 겹침 방지 */
+  width:auto;                     /* a가 100% 잡아먹지 않게 */
+  padding:14px 22px;              /* 버튼같은 느낌 */
+  background:var(--terracotta);
+  color:white;
+  border:none;
+  border-radius:2px;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+  margin-top:0;                   /* gap로 간격 관리 */
+  text-decoration:none;           /* a 밑줄 제거 */
+  transition:background .2s,transform .2s;
+}
+.form-submit:hover{background:#a04209;transform:translateY(-2px)}
+
+.form-note{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6}
+.form-success{display:none;text-align:center;padding:40px 20px}
+.form-success .success-icon{font-size:48px;margin-bottom:16px}
+.form-success h4{font-family:'Playfair Display',serif;font-size:22px;color:var(--deep);margin-bottom:10px}
+.form-success p{font-size:14px;color:var(--muted);line-height:1.8}
+
+/* #booking {background:var(--parchment);padding-top: 80px;}
+#booking {border-top: 1px solid rgba(0,0,0,0.06);}
+#booking .section{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.booking-options{margin-top:36px;display:flex;flex-direction:column;gap:14px}
+.booking-option{background:var(--white);border:1px solid var(--warm);border-radius:2px;padding:18px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;transition:border-color .2s}
+.booking-option:hover{border-color:var(--terracotta)}
+.booking-option.active{border-color:var(--terracotta);background:rgba(193,84,12,.04)}
+.bo-icon{font-size:22px;flex-shrink:0}
+.bo-text h4{font-family:'Noto Serif KR',serif;font-size:13px;font-weight:700;color:var(--deep);margin-bottom:3px}
+.bo-text p{font-size:12px;color:var(--muted);line-height:1.6}
+.booking-form{background:var(--white);border:1px solid var(--warm);border-radius:2px;padding:36px 32px}
+.booking-form h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--deep);margin-bottom:6px}
+.booking-form .form-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:500}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;background:var(--cream);border:1px solid var(--warm);border-radius:2px;font-family:inherit;font-size:14px;color:var(--deep);outline:none;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--terracotta);background:var(--white)}
+.form-group textarea{resize:vertical;min-height:90px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-submit{width:100%;padding:14px;background:var(--terracotta);color:white;border:none;border-radius:2px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;margin-top:6px;transition:background .2s,transform .2s}
+.form-submit:hover{background:#a04209;transform:translateY(-2px)}
+.form-note{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6}
+.form-success{display:none;text-align:center;padding:40px 20px}
+.form-success .success-icon{font-size:48px;margin-bottom:16px}
+.form-success h4{font-family:'Playfair Display',serif;font-size:22px;color:var(--deep);margin-bottom:10px}
+.form-success p{font-size:14px;color:var(--muted);line-height:1.8} */
+
+/* CTA */
+.cta-banner{background:var(--terracotta);padding:80px 8%;text-align:center;position:relative;overflow:hidden}
+.cta-banner::before{content:'家族';position:absolute;font-family:'Playfair Display',serif;font-size:300px;color:rgba(255,255,255,.05);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-banner h2{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,50px);color:white;font-style:italic;margin-bottom:18px}
+.cta-banner p{font-size:16px;color:rgba(255,255,255,.8);max-width:500px;margin:0 auto 32px;line-height:1.8}
+.btn-white{background:white;color:var(--terracotta);padding:13px 34px;font-size:14px;font-family:inherit;font-weight:500;border:none;border-radius:2px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn-white:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.15)}
+
+/* FOOTER */
+footer{background:var(--deep);padding:56px 8% 28px;color:rgba(247,241,232,.5)}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:28px}
+.footer-brand .logo{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--cream);margin-bottom:12px}
+.footer-brand .logo span{color:var(--terracotta)}
+.footer-brand p{font-size:12.5px;line-height:1.9;color:rgba(247,241,232,.45)}
+.footer-col h5{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:9px;font-size:12.5px;color:rgba(247,241,232,.45);transition:color .2s;cursor:pointer}
+.footer-col li:hover{color:var(--cream)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:11px;flex-wrap:wrap;gap:12px}
+.social-links{display:flex;gap:12px}
+.social-link{width:34px;height:34px;border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;transition:border-color .2s,background .2s;cursor:pointer}
+.social-link:hover{border-color:var(--gold);background:rgba(191,149,64,.1)}
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--cream);border-bottom:1px solid var(--warm);padding:20px 8%;z-index:99;flex-direction:column;gap:0;box-shadow:0 8px 32px rgba(26,17,8,.1)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{display:block;padding:13px 0;font-size:15px;color:var(--muted);border-bottom:1px solid var(--warm)}
+.mobile-menu a:last-child{border-bottom:none}
+.sr{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+.sr.visible{opacity:1;transform:translateY(0)}
+@keyframes riseIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:860px){
+  #home{grid-template-columns:1fr}.hero-visual{height:280px}
+  #about .section{grid-template-columns:1fr;gap:48px}.about-badge{right:0}
+  .family-intro{grid-template-columns:1fr;gap:20px}.family-cards{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:36px}.steps::before{display:none}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}.gallery-item:nth-child(1){grid-row:auto}
+  .reviews-grid{grid-template-columns:1fr}
+  #booking .section{grid-template-columns:1fr;gap:36px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px}
+  .nav-links{display:none}.nav-burger{display:flex}
+}
+@media(max-width:540px){
+  .family-cards{grid-template-columns:1fr}.steps{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column}.form-row{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}.booking-form{padding:24px 18px}.hero-text{padding:48px 6%}
+  .lang-btn{padding:4px 7px;font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#home" class="nav-logo">가족같은 <span>여행</span></a>
+  <ul class="nav-links">
+    <li><a href="#about"   data-i18n="nav_about">서비스 소개</a></li>
+    <li><a href="#family"  data-i18n="nav_family">우리 가족</a></li>
+    <li><a href="#how"     data-i18n="nav_how">이용 방법</a></li>
+    <li><a href="#gallery" data-i18n="nav_gallery">후기</a></li>
+    <li><a href="#booking" class="nav-cta" data-i18n="nav_book">지금 예약하기</a></li>
+  </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('ko')">🇰🇷 KO</button>
+    <button class="lang-btn"        onclick="setLang('th')">🇹🇭 TH</button>
+    <button class="lang-btn"        onclick="setLang('en')">🇬🇧 EN</button>
+  </div>
+  <div class="nav-burger" id="burger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"   onclick="closeMobile()" data-i18n="nav_about">서비스 소개</a>
+  <a href="#family"  onclick="closeMobile()" data-i18n="nav_family">우리 가족</a>
+  <a href="#how"     onclick="closeMobile()" data-i18n="nav_how">이용 방법</a>
+  <a href="#gallery" onclick="closeMobile()" data-i18n="nav_gallery">후기</a>
+  <a href="#booking" onclick="closeMobile()" data-i18n="nav_book">지금 예약하기</a>
+</div>
+
+<section id="home">
+  <div class="hero-text">
+    <div class="hero-tag" data-i18n="hero_tag">한국 ↔ 태국 · 문화 교류 여행</div>
+    <h1>
+      <span data-i18n="hero_h1a">Tourist가 아닌</span><br>
+      <em data-i18n="hero_h1b">Family Member</em><br>
+      <span data-i18n="hero_h1c">로 여행하세요</span>
+    </h1>
+    <p data-i18n="hero_p">낯선 나라에서 진짜 가족의 일원이 되는 경험. 호텔이 아닌 가정에서, 관광이 아닌 일상을 함께합니다.</p>
+    <div class="hero-btns">
+      <button class="btn-primary"   onclick="document.querySelector('#booking').scrollIntoView({behavior:'smooth'})" data-i18n="btn_book">지금 예약하기</button>
+      <button class="btn-secondary" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})"   data-i18n="btn_more">자세히 보기</button>
+    </div>
+    <div class="hero-flags">
+      <div class="flag-badge"><span>🇰🇷</span><span data-i18n="flag_kr">한국 → 태국</span></div>
+      <div class="hero-divider">·</div>
+      <div class="flag-badge"><span>🇹🇭</span><span data-i18n="flag_th">태국 → 한국</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="photo-grid">
+      <div class="photo-cell"><div class="photo-cell-label"><span class="icon">🍜</span><span data-i18n="photo1">함께하는 식사</span></div></div>
+      <div class="photo-cell"><div class="photo-cell-label"><span class="icon">🌿</span><span data-i18n="photo2">현지 시장</span></div></div>
+      <div class="photo-cell"><div class="photo-cell-label"><span class="icon">🏘️</span><span data-i18n="photo3">가족의 일상</span></div></div>
+      <div class="photo-cell"><div class="photo-cell-label"><span class="icon">💫</span><span data-i18n="photo4">진짜 기억</span></div></div>
+    </div>
+    <div class="hero-caption">
+      <p data-i18n="hero_caption">"낯선 사람이 가족이 되는 순간"</p>
+      <small data-i18n="hero_caption_sub">실제 게스트 경험 기반</small>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-item"><span>🏠</span><span data-i18n="strip1">실제 가정집 숙박</span></div>
+  <div class="strip-item"><span>🍽️</span><span data-i18n="strip2">가족 식탁 함께</span></div>
+  <div class="strip-item"><span>🗺️</span><span data-i18n="strip3">현지인 동행 투어</span></div>
+  <div class="strip-item"><span>💬</span><span data-i18n="strip4">언어 교환</span></div>
+  <div class="strip-item"><span>❤️</span><span data-i18n="strip5">평생 가족 연결</span></div>
+</div>
+
+<section id="about">
+  <div class="section">
+    <div class="about-visual sr">
+      <div class="about-main-img">
+        <span class="big-icon">🏡</span>
+        <span data-i18n="about_img">우리 가족의 집</span>
+      </div>
+      <div class="about-badge">
+        <span class="num">100%</span>
+        <small data-i18n="about_badge">진짜 가족 경험</small>
+      </div>
+    </div>
+    <div class="about-text sr">
+      <span class="section-label" data-i18n="about_label">서비스 소개</span>
+      <h2 class="section-title"><span data-i18n="about_h2a">"가족같은 여행"은 일반 여행과</span><br><em data-i18n="about_h2b">완전히 다릅니다</em></h2>
+      <p class="section-lead" data-i18n="about_lead">호텔에서 체크인하고 관광지를 다니는 여행이 아닙니다. 가족 밥상을 함께하며, 가족의 하루를 같이 보내며, 가족의 따뜻함을 느껴보세요.</p>
+      <div class="features">
+        <div class="feature"><div class="feature-icon">🌅</div><div><h4 data-i18n="feat1_h">진짜 일상을 함께</h4><p data-i18n="feat1_p">새벽 시장 방문, 가족 요리, 동네 산책 — 관광책에 없는 진짜 현지 생활을 경험합니다.</p></div></div>
+        <div class="feature"><div class="feature-icon">🤝</div><div><h4 data-i18n="feat2_h">사전 매칭 시스템</h4><p data-i18n="feat2_p">여행자의 관심사, 성격, 일정을 고려해 가장 잘 맞는 호스트 가족과 매칭해드립니다.</p></div></div>
+        <div class="feature"><div class="feature-icon">🛡️</div><div><h4 data-i18n="feat3_h">안전하고 신뢰할 수 있는</h4><p data-i18n="feat3_p">모든 호스트 가족은 직접 검증하며, 여행 전 사전 화상 미팅으로 서로를 알아가는 시간을 갖습니다.</p></div></div>
+        <div class="feature"><div class="feature-icon">🌐</div><div><h4 data-i18n="feat4_h">한국 ↔ 태국 양방향</h4><p data-i18n="feat4_p">태국 방콕의 우리 가족이 직접 한국 여행자를 호스팅하고, 한국을 방문하는 태국인도 연결합니다.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-line">
+
+<section id="family">
+  <div class="section">
+    <div class="family-intro sr">
+      <div>
+        <span class="section-label" data-i18n="fam_label">우리 가족</span>
+        <h2 class="section-title"><span data-i18n="fam_h2a">호스트</span><br><em data-i18n="fam_h2b">가족 소개</em></h2>
+      </div>
+      <div>
+        <p style="font-size:15px;line-height:1.9;color:var(--muted)" data-i18n="fam_p1">태국 방콕에 살고 있는 우리 가족입니다. 어머니, 형, 그리고 제가 함께 여행자들을 맞이합니다.</p>
+        <p style="font-size:15px;line-height:1.9;color:var(--muted);margin-top:14px" data-i18n="fam_p2">한국어와 태국어, 영어로 소통하며 여러분의 태국 여행을 특별한 기억으로 만들어드립니다.</p>
+      </div>
+    </div>
+    <div class="family-cards">
+      <div class="family-card sr">
+        <div class="family-card-img card-img-1"><span class="icon">👩</span></div>
+        <div class="family-card-body">
+          <h3 data-i18n="mem1_name">어머니</h3>
+          <span class="family-card-role" data-i18n="mem1_role">호스트 · 요리 담당</span>
+          <p data-i18n="mem1_p">50년 방콕 토박이. 매일 아침 직접 만드는 태국 요리와 따뜻한 환대로 모든 게스트를 가족처럼 맞이합니다.</p>
+        </div>
+      </div>
+      <div class="family-card sr">
+        <div class="family-card-img card-img-2"><span class="icon">🧑</span></div>
+        <div class="family-card-body">
+          <h3 data-i18n="mem2_name">형</h3>
+          <span class="family-card-role" data-i18n="mem2_role">가이드 · 현지 전문가</span>
+          <p data-i18n="mem2_p">방콕의 숨겨진 맛집과 현지인 명소를 꿰뚫고 있습니다. 게스트와 함께 진짜 태국 문화를 탐험합니다.</p>
+        </div>
+      </div>
+      <div class="family-card sr">
+        <div class="family-card-img card-img-3"><span class="icon">👤</span></div>
+        <div class="family-card-body">
+          <h3 data-i18n="mem3_name">나 (호스트)</h3>
+          <span class="family-card-role" data-i18n="mem3_role">코디네이터 · 통역</span>
+          <p data-i18n="mem3_p">한국어·태국어·영어로 소통하며 매칭부터 여행까지 전 과정을 함께합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="section sr">
+    <span class="section-label" data-i18n="how_label">이용 방법</span>
+    <h2 class="section-title"><span data-i18n="how_h2a">4단계로 시작하는</span><br><em style="color:var(--warm)" data-i18n="how_h2b">가족 여행</em></h2>
+    <p class="section-lead" data-i18n="how_lead">복잡하지 않습니다. 문의부터 여행까지, 우리가 함께합니다.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><h4 data-i18n="step1_h">문의 &amp; 매칭</h4><p data-i18n="step1_p">예약 폼을 작성하면 48시간 내에 연락드립니다.</p></div>
+      <div class="step"><div class="step-num">2</div><h4 data-i18n="step2_h">사전 미팅</h4><p data-i18n="step2_p">화상 통화로 서로를 먼저 알아가는 시간.</p></div>
+      <div class="step"><div class="step-num">3</div><h4 data-i18n="step3_h">가족이 되는 여행</h4><p data-i18n="step3_p">도착하는 순간부터 가족입니다! 24시간 공항 픽업 서비스 제공</p></div>
+      <div class="step"><div class="step-num">4</div><h4 data-i18n="step4_h">평생의 인연</h4><p data-i18n="step4_p">여행이 끝나도 관계는 계속됩니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="section">
+    <span class="section-label" data-i18n="gal_label">갤러리 &amp; 후기</span>
+    <h2 class="section-title"><span data-i18n="gal_h2a">함께한</span> <em data-i18n="gal_h2b">순간들</em></h2>
+    <p class="section-lead" data-i18n="gal_lead">사진으로 담은 우리의 기억들. 다음은 여러분의 차례입니다.</p>
+    <div class="gallery-grid sr">
+      <div class="gallery-item"><span class="gal-icon">🍜</span><span data-i18n="gal1">가족 식탁</span></div>
+      <div class="gallery-item"><span class="gal-icon">🌿</span><span data-i18n="gal2">새벽 시장</span></div>
+      <div class="gallery-item"><span class="gal-icon">🛺</span><span data-i18n="gal3">현지 투어</span></div>
+      <div class="gallery-item"><span class="gal-icon">🏯</span><span data-i18n="gal4">문화 탐방</span></div>
+      <div class="gallery-item"><span class="gal-icon">🍳</span><span data-i18n="gal5">요리 클래스</span></div>
+    </div>
+    <p class="reviews-label" data-i18n="rev_label">실제 게스트 후기</p>
+    <div class="reviews-grid">
+      <div class="review-card sr">
+        <div class="review-stars">★★★★★</div>
+        <p data-i18n="rev1_p">태국에 여행을 수십 번 갔지만, 이번에 처음으로 "진짜 태국"을 경험했습니다.</p>
+        <div class="reviewer"><div class="reviewer-avatar av1">😊</div><div class="reviewer-info"><strong data-i18n="rev1_name">1</strong><small data-i18n="rev1_loc">서울 · 태국 방문</small></div></div>
+      </div>
+      <div class="review-card sr">
+        <div class="review-stars">★★★★★</div>
+        <p data-i18n="rev2_p">처음엔 어색했는데, 첫 날 저녁 식사 이후로는 완전히 가족이 된 느낌이었습니다.</p>
+        <div class="reviewer"><div class="reviewer-avatar av2">🙂</div><div class="reviewer-info"><strong data-i18n="rev2_name">2</strong><small data-i18n="rev2_loc">부산 · 태국 방문</small></div></div>
+      </div>
+      <div class="review-card sr">
+        <div class="review-stars">★★★★★</div>
+        <p data-i18n="rev3_p">한국어도 배우고, 음식도 함께 만들었어요. 진짜 문화 교류였습니다!</p>
+        <div class="reviewer"><div class="reviewer-avatar av3">😄</div><div class="reviewer-info"><strong data-i18n="rev3_name">3</strong><small data-i18n="rev3_loc">방콕 · 한국 방문</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="section">
+    <div class="booking-info sr">
+      <p class="book-cta">👉 간단한 1분 신청으로 시작하세요</p>
+
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeWcTvIVhLcUsjViQVZigiEQZRkeEnKy9Mfh4vqtsEG1JC4Ig/viewform?usp=dialog"
+         target="_blank"
+         class="form-submit">
+        신청 보내기 →
+      </a>
+    </div>
+  </div>
+</section>
+
+      
+      <!-- <span class="section-label" data-i18n="book_label">예약 &amp; 문의</span>
+      <h2 class="section-title"><span data-i18n="book_h2a">가족이 되는</span><br><em data-i18n="book_h2b">여행 시작하기</em></h2>
+      <p class="section-lead" data-i18n="book_lead">아래 폼을 작성해주시면 48시간 내로 연락드립니다!</p>
+      <div class="booking-options">
+        <div class="booking-option active" onclick="selectOption(this)">
+          <div class="bo-icon">🇹🇭</div>
+          <div class="bo-text"><h4 data-i18n="opt1_h">태국 가족 홈스테이 (방콕)</h4><p data-i18n="opt1_p">우리 가족과 함께하는 방콕 현지 생활.</p></div>
+        </div>
+        <div class="booking-option" onclick="selectOption(this)">
+          <div class="bo-icon">🇰🇷</div>
+          <div class="bo-text"><h4 data-i18n="opt2_h">한국 가족 홈스테이 매칭</h4><p data-i18n="opt2_p">한국 방문 태국인을 위한 호스트 가족 매칭.</p></div>
+        </div>
+        <div class="booking-option" onclick="selectOption(this)">
+          <div class="bo-icon">✉️</div>
+          <div class="bo-text"><h4 data-i18n="opt3_h">일반 문의</h4><p data-i18n="opt3_p">서비스에 대해 더 알고 싶으시면 문의해 주세요.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form sr">
+      <h3 data-i18n="form_title">문의 &amp; 예약 신청</h3>
+      <p class="form-sub" data-i18n="form_sub">모든 항목을 입력해주시면 더 빠른 안내가 가능합니다.</p>
+      <form id="bookingForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group"><label data-i18n="lbl_name">이름 *</label><input type="text" required></div>
+          <div class="form-group"><label data-i18n="lbl_nation">국적</label>
+            <select>
+              <option value="" data-i18n="opt_select">선택해주세요</option>
+              <option value="kr">🇰🇷 한국</option>
+              <option value="th">🇹🇭 태국</option>
+              <option value="other" data-i18n="opt_other">기타</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label data-i18n="lbl_email">이메일 *</label><input type="email" required></div>
+        <div class="form-group"><label data-i18n="lbl_msg">카카오톡 / LINE / WhatsApp</label><input type="text"></div>
+        <div class="form-row">
+          <div class="form-group"><label data-i18n="lbl_date">희망 방문 시기</label><input type="month"></div>
+          <div class="form-group"><label data-i18n="lbl_ppl">인원 수</label>
+            <select><option>1</option><option>2</option><option>3</option><option>4+</option></select>
+          </div>
+        </div>
+        <div class="form-group"><label data-i18n="lbl_inquiry">문의 내용</label><textarea></textarea></div>
+        <button type="submit" class="form-submit" data-i18n="btn_submit">신청 보내기 →</button>
+        <p class="form-note" data-i18n="form_note">📩 48시간 내 답변</p>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">🎉</div>
+        <h4 data-i18n="success_h">신청이 완료되었습니다!</h4>
+        <p data-i18n="success_p">48시간 내로 연락드리겠습니다 🏡</p>
+      </div>
+    </div>
+  </div> -->
+</section>
+
+<div class="cta-banner sr">
+  <h2 data-i18n="cta_h">"Tourist가 아닌 Family로"</h2>
+  <p data-i18n="cta_p">지금 신청하시면 첫 매칭 상담을 무료로 받으실 수 있습니다.</p>
+  <button class="btn-white" onclick="document.querySelector('#booking').scrollIntoView({behavior:'smooth'})" data-i18n="cta_btn">무료 상담 신청하기</button>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">가족같은 <span>여행</span></div>
+      <p data-i18n="footer_desc">여행자가 가족의 일원이 되는 한국 ↔ 태국 문화 교류 여행</p>
+    </div>
+    <div class="footer-col">
+      <h5 data-i18n="ft_service">서비스</h5>
+      <ul>
+        <li onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})"   data-i18n="nav_about">서비스 소개</li>
+        <li onclick="document.querySelector('#family').scrollIntoView({behavior:'smooth'})"  data-i18n="nav_family">우리 가족</li>
+        <li onclick="document.querySelector('#how').scrollIntoView({behavior:'smooth'})"     data-i18n="nav_how">이용 방법</li>
+        <li onclick="document.querySelector('#gallery').scrollIntoView({behavior:'smooth'})" data-i18n="nav_gallery">후기</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5 data-i18n="ft_contact">문의</h5>
+      <ul>
+        <li data-i18n="ft_booking">예약 문의</li>
+        <li>KakaoTalk</li><li>LINE</li><li>WhatsApp</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>SNS</h5>
+      <ul><li>Instagram</li><li>TikTok</li><li>YouTube</li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span data-i18n="footer_copy">© 2025 가족같은여행 · All rights reserved</span>
+    <div class="social-links">
+      <div class="social-link">📸</div>
+      <div class="social-link">🎵</div>
+      <div class="social-link">▶️</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const T={
+  ko:{
+    nav_about:"서비스 소개",nav_family:"우리 가족",nav_how:"이용 방법",nav_gallery:"후기",nav_book:"지금 예약하기",
+    hero_tag:"한국 ↔ 태국 · 문화 교류 여행",hero_h1a:"Tourist가 아닌",hero_h1b:"Family Member",hero_h1c:"로 여행하세요",
+    hero_p:"낯선 나라에서 진짜 가족의 일원이 되는 경험. 호텔이 아닌 가정에서, 관광이 아닌 일상을 함께합니다.",
+    btn_book:"지금 예약하기",btn_more:"자세히 보기",flag_kr:"한국 → 태국",flag_th:"태국 → 한국",
+    photo1:"함께하는 식사",photo2:"현지 시장",photo3:"가족의 일상",photo4:"진짜 기억",
+    hero_caption:'"낯선 사람이 가족이 되는 순간"',hero_caption_sub:"실제 게스트 경험 기반",
+    strip1:"실제 가정집 숙박",strip2:"가족 식탁 함께",strip3:"현지인 동행 투어",strip4:"언어 교환",strip5:"평생 가족 연결",
+    about_label:"서비스 소개",about_img:"우리 가족의 집",about_badge:"진짜 가족 경험",
+    about_h2a:"가족같은 여행은 일반 여행과는",about_h2b:"완전히 다릅니다",
+    about_lead:"호텔에서 체크인하고 관광지를 다니는 여행이 아닙니다. 우리 집에서 자고, 우리 밥상을 함께하며, 우리 가족의 하루를 같이 보냅니다.",
+    feat1_h:"진짜 일상을 함께",feat1_p:"새벽 시장 방문, 가족 요리, 동네 산책 — 관광책에 없는 진짜 현지 생활을 경험합니다.",
+    feat2_h:"사전 매칭 시스템",feat2_p:"여행자의 관심사, 성격, 일정을 고려해 가장 잘 맞는 호스트 가족과 매칭해드립니다.",
+    feat3_h:"안전하고 신뢰할 수 있는",feat3_p:"모든 호스트 가족은 직접 검증하며, 여행 전 사전 화상 미팅으로 서로를 알아가는 시간을 갖습니다.",
+    feat4_h:"한국 ↔ 태국 양방향",feat4_p:"태국 방콕의 우리 가족이 직접 한국 여행자를 호스팅하고, 한국을 방문하는 태국인도 연결합니다.",
+    fam_label:"우리 가족",fam_h2a:"호스트",fam_h2b:"가족 소개",
+    fam_p1:"태국 방콕에 살고 있는 우리 가족입니다. 어머니, 형, 그리고 제가 함께 여행자들을 맞이합니다.",
+    fam_p2:"한국어와 태국어, 영어로 소통하며 여러분의 태국 여행을 특별한 기억으로 만들어드립니다.",
+    mem1_name:"어머니",mem1_role:"호스트 · 요리 담당",mem1_p:"50년 방콕 토박이. 매일 아침 직접 만드는 태국 요리와 따뜻한 환대로 모든 게스트를 가족처럼 맞이합니다.",
+    mem2_name:"형",mem2_role:"가이드 · 현지 전문가",mem2_p:"방콕의 숨겨진 맛집과 현지인 명소를 꿰뚫고 있습니다. 게스트와 함께 진짜 태국 문화를 탐험합니다.",
+    mem3_name:"나 (호스트)",mem3_role:"코디네이터 · 통역",mem3_p:"한국어·태국어·영어로 소통하며 매칭부터 여행까지 전 과정을 함께합니다.",
+    how_label:"이용 방법",how_h2a:"4단계로 시작하는",how_h2b:"가족 여행",how_lead:"복잡하지 않습니다. 문의부터 여행까지, 우리가 함께합니다.",
+    step1_h:"문의 & 매칭",step1_p:"예약 폼을 작성하면 48시간 내에 연락드립니다.",
+    step2_h:"사전 미팅",step2_p:"화상 통화로 서로를 먼저 알아가는 시간.",
+    step3_h:"가족이 되는 여행",step3_p:"도착하는 순간부터 가족입니다. 24시간 공항 픽업 서비스 제공!",
+    step4_h:"평생의 인연",step4_p:"여행이 끝나도 관계는 계속됩니다.",
+    gal_label:"갤러리 & 후기",gal_h2a:"함께한",gal_h2b:"순간들",gal_lead:"사진으로 담은 우리의 기억들. 다음은 여러분의 차례입니다.",
+    gal1:"가족 식탁",gal2:"새벽 시장",gal3:"현지 투어",gal4:"문화 탐방",gal5:"요리 클래스",
+    rev_label:"실제 게스트 후기",
+    rev1_p:'태국에 수십 번 갔지만, 이번에 처음으로 "진짜 태국"을 경험했습니다.',rev1_name:"1",rev1_loc:"서울 · 태국 방문",
+    rev2_p:"처음엔 어색했는데, 첫 날 저녁 식사 이후로는 완전히 가족이 된 느낌이었습니다.",rev2_name:"2",rev2_loc:"부산 · 태국 방문",
+    rev3_p:"한국어도 배우고, 음식도 함께 만들었어요. 진짜 문화 교류였습니다!",rev3_name:"3",rev3_loc:"방콕 · 한국 방문",
+    book_label:"예약 & 문의",book_h2a:"가족이 되는",book_h2b:"여행 시작하기",book_lead:"아래 폼을 작성해주시면 48시간 내로 연락드립니다!",
+    opt1_h:"태국 가족 홈스테이 (방콕)",opt1_p:"우리 가족과 함께하는 방콕 현지 생활.",
+    opt2_h:"한국 가족 홈스테이 매칭",opt2_p:"한국 방문 태국인을 위한 호스트 가족 매칭.",
+    opt3_h:"일반 문의",opt3_p:"서비스에 대해 더 알고 싶으시면 문의해 주세요.",
+    form_title:"문의 & 예약 신청",form_sub:"모든 항목을 입력해주시면 더 빠른 안내가 가능합니다.",
+    lbl_name:"이름 *",lbl_nation:"국적",lbl_email:"이메일 *",lbl_msg:"카카오톡 / LINE / WhatsApp",lbl_date:"희망 방문 시기",lbl_ppl:"인원 수",lbl_inquiry:"문의 내용",
+    opt_select:"선택해주세요",opt_other:"기타",btn_submit:"신청 보내기 →",form_note:"📩 48시간 내 답변",
+    success_h:"신청이 완료되었습니다!",success_p:"48시간 내로 연락드리겠습니다 🏡",
+    cta_h:'"Tourist가 아닌 Family로"',cta_p:"지금 신청하시면 첫 매칭 상담을 무료로 받으실 수 있습니다.",cta_btn:"무료 상담 신청하기",
+    footer_desc:"여행자가 가족의 일원이 되는 한국 ↔ 태국 문화 교류 여행",
+    ft_service:"서비스",ft_contact:"문의",ft_booking:"예약 문의",footer_copy:"© 2025 가족같은여행 · All rights reserved"
+  },
+  th:{
+    nav_about:"เกี่ยวกับเรา",nav_family:"ครอบครัวเรา",nav_how:"วิธีการ",nav_gallery:"รีวิว",nav_book:"จองเลย",
+    hero_tag:"เกาหลี ↔ ไทย · แลกเปลี่ยนวัฒนธรรม",hero_h1a:"ไม่ใช่แค่เที่ยว",hero_h1b:"ใช้ชีวิตเหมือนเป็นสมาชิกครอบครัว",hero_h1c:"",
+    hero_p:"สัมผัสชีวิตจริงในฐานะสมาชิกครอบครัว ไม่ใช่ท่องเที่ยว แต่คือชีวิตประจำวัน",
+    btn_book:"จองเลย",btn_more:"ดูเพิ่มเติม",flag_kr:"เกาหลี → ไทย",flag_th:"ไทย → เกาหลี",
+    photo1:"กินข้าวด้วยกัน",photo2:"ตลาดท้องถิ่น",photo3:"ชีวิตครอบครัว",photo4:"ความทรงจำที่แท้จริง",
+    hero_caption:'"ช่วงเวลาที่คนแปลกหน้ากลายเป็นครอบครัว"',hero_caption_sub:"จากประสบการณ์จริงของแขก",
+    strip1:"พักในบ้านจริง",strip2:"ร่วมโต๊ะอาหาร",strip3:"ทัวร์กับคนท้องถิ่น",strip4:"แลกเปลี่ยนภาษา",strip5:"สายสัมพันธ์ตลอดชีวิต",
+    about_label:"เกี่ยวกับเรา",about_img:"บ้านของครอบครัวเรา",about_badge:"ประสบการณ์ครอบครัวแท้จริง",
+    about_h2a:"แตกต่างจาก",about_h2b:"การท่องเที่ยวทั่วไปโดยสิ้นเชิง",
+    about_lead:"ไม่ใช่การเช็คอินโรงแรมและเที่ยวสถานที่ท่องเที่ยว แต่คือการนอนที่บ้านเรา กินข้าวด้วยกัน และใช้ชีวิตประจำวันร่วมกัน",
+    feat1_h:"ใช้ชีวิตจริงด้วยกัน",feat1_p:"ตลาดเช้า ทำอาหาร เดินในย่าน — ประสบการณ์ที่ไม่มีในคู่มือท่องเที่ยว",
+    feat2_h:"ระบบจับคู่ล่วงหน้า",feat2_p:"จับคู่กับครอบครัวโฮสต์ที่เหมาะสมที่สุดตามความสนใจและตารางเวลาของคุณ",
+    feat3_h:"ปลอดภัยและเชื่อถือได้",feat3_p:"ครอบครัวโฮสต์ทุกครอบครัวได้รับการตรวจสอบโดยตรง พร้อมการประชุมวิดีโอก่อนการเดินทาง",
+    feat4_h:"สองทิศทาง เกาหลี ↔ ไทย",feat4_p:"ครอบครัวเราในกรุงเทพฯ รับแขกชาวเกาหลี และยังเชื่อมต่อชาวไทยที่ไปเกาหลีด้วย",
+    fam_label:"ครอบครัวของเรา",fam_h2a:"แนะนำ",fam_h2b:"ครอบครัวโฮสต์",
+    fam_p1:"ครอบครัวเราอยู่ที่กรุงเทพฯ คุณแม่ พี่ชาย และฉันต้อนรับนักเดินทางด้วยใจจริง",
+    fam_p2:"เราสื่อสารได้ทั้งภาษาไทย เกาหลี และอังกฤษ เพื่อให้การเดินทางของคุณกลายเป็นความทรงจำพิเศษ",
+    mem1_name:"คุณแม่",mem1_role:"โฮสต์ · แม่ครัว",mem1_p:"อยู่กรุงเทพฯ มา 50 ปี ต้อนรับแขกทุกคนเหมือนสมาชิกครอบครัวด้วยอาหารไทยแท้ๆ",
+    mem2_name:"พี่ชาย",mem2_role:"ไกด์ · ผู้เชี่ยวชาญท้องถิ่น",mem2_p:"รู้จักร้านอาหารซ่อนเร้นและสถานที่ท้องถิ่นในกรุงเทพฯ เป็นอย่างดี",
+    mem3_name:"ฉัน (โฮสต์)",mem3_role:"ผู้ประสานงาน · ล่าม",mem3_p:"สื่อสารภาษาไทย เกาหลี และอังกฤษ ดูแลทุกขั้นตอนตั้งแต่การจับคู่จนถึงการเดินทาง",
+    how_label:"วิธีการ",how_h2a:"4 ขั้นตอนง่ายๆ",how_h2b:"เริ่มการเดินทาง",how_lead:"ไม่ยุ่งยาก เราอยู่เคียงข้างคุณตั้งแต่ต้นจนจบ",
+    step1_h:"สอบถาม & จับคู่",step1_p:"กรอกฟอร์มจอง เราจะติดต่อกลับภายใน 48 ชั่วโมง",
+    step2_h:"ประชุมล่วงหน้า",step2_p:"วิดีโอคอลเพื่อรู้จักกันก่อนเดินทาง",
+    step3_h:"เป็นส่วนหนึ่งของครอบครัว",step3_p:"ตั้งแต่ก้าวแรกที่บ้านเรา คุณคือครอบครัว",
+    step4_h:"สายสัมพันธ์ตลอดชีวิต",step4_p:"แม้การเดินทางจบ ความสัมพันธ์ยังคงอยู่",
+    gal_label:"แกลเลอรี & รีวิว",gal_h2a:"ช่วงเวลา",gal_h2b:"ที่เราสร้างร่วมกัน",gal_lead:"ภาพความทรงจำของเรา ถึงเวลาของคุณแล้ว",
+    gal1:"โต๊ะอาหารครอบครัว",gal2:"ตลาดเช้า",gal3:"ทัวร์ท้องถิ่น",gal4:"สำรวจวัฒนธรรม",gal5:"คลาสทำอาหาร",
+    rev_label:"รีวิวจากแขกจริง",
+    rev1_p:'ไปเที่ยวไทยมาหลายสิบครั้ง แต่ครั้งนี้เป็นครั้งแรกที่ได้สัมผัส "ไทยแท้จริง"',rev1_name:"1",rev1_loc:"โซล · มาเที่ยวไทย",
+    rev2_p:"ตอนแรกรู้สึกเขิน แต่หลังมื้อเย็นวันแรก รู้สึกเหมือนเป็นครอบครัวเลย",rev2_name:"2",rev2_loc:"ปูซาน · มาเที่ยวไทย",
+    rev3_p:"ได้เรียนภาษาเกาหลี ทำอาหารเกาหลีด้วยกัน มันคือการแลกเปลี่ยนวัฒนธรรมจริงๆ!",rev3_name:"3",rev3_loc:"กรุงเทพฯ · ไปเที่ยวเกาหลี",
+    book_label:"จอง & สอบถาม",book_h2a:"เริ่มต้น",book_h2b:"การเดินทางที่เป็นครอบครัว",book_lead:"กรอกฟอร์มด้านล่าง เราจะติดต่อกลับภายใน 48 ชั่วโมง!",
+    opt1_h:"โฮมสเตย์ครอบครัวไทย (กรุงเทพฯ)",opt1_p:"ใช้ชีวิตในกรุงเทพฯ กับครอบครัวเรา",
+    opt2_h:"จับคู่ครอบครัวเกาหลี",opt2_p:"บริการจับคู่โฮสต์เกาหลีสำหรับคนไทยที่ไปเกาหลี",
+    opt3_h:"สอบถามทั่วไป",opt3_p:"อยากรู้เพิ่มเติมเกี่ยวกับบริการ ถามได้เลย",
+    form_title:"สอบถาม & จองเลย",form_sub:"กรอกข้อมูลให้ครบเพื่อการตอบกลับที่รวดเร็ว",
+    lbl_name:"ชื่อ *",lbl_nation:"สัญชาติ",lbl_email:"อีเมล *",lbl_msg:"KakaoTalk / LINE / WhatsApp",lbl_date:"วันที่ต้องการเดินทาง",lbl_ppl:"จำนวนคน",lbl_inquiry:"ข้อความ",
+    opt_select:"เลือก",opt_other:"อื่นๆ",btn_submit:"ส่งคำขอ →",form_note:"📩 ตอบกลับภายใน 48 ชั่วโมง",
+    success_h:"ส่งคำขอสำเร็จ!",success_p:"เราจะติดต่อกลับภายใน 48 ชั่วโมง 🏡",
+    cta_h:'"ไม่ใช่นักท่องเที่ยว แต่คือครอบครัว"',cta_p:"สมัครตอนนี้รับคำปรึกษาการจับคู่ครั้งแรกฟรี",cta_btn:"ปรึกษาฟรี",
+    footer_desc:"การท่องเที่ยวที่คุณกลายเป็นสมาชิกครอบครัว เกาหลี ↔ ไทย",
+    ft_service:"บริการ",ft_contact:"ติดต่อ",ft_booking:"สอบถามการจอง",footer_copy:"© 2025 가족같은여행 · All rights reserved"
+  },
+  en:{
+    nav_about:"About",nav_family:"Our Family",nav_how:"How It Works",nav_gallery:"Reviews",nav_book:"Book Now",
+    hero_tag:"Korea ↔ Thailand · Cultural Exchange Travel",hero_h1a:"Travel Not As a Tourist,",hero_h1b:"But as Family.",hero_h1c:"",
+    hero_p:"Experience becoming a real family member in a foreign country. Not just a travel or a sightseeing — real everyday life.",
+    btn_book:"Book Now",btn_more:"Learn More",flag_kr:"Korea → Thailand",flag_th:"Thailand → Korea",
+    photo1:"Family Meals",photo2:"Local Market",photo3:"Family Life",photo4:"Real Memories",
+    hero_caption:'"The moment a stranger becomes family"',hero_caption_sub:"Based on real guest experiences",
+    strip1:"Stay in a Real Home",strip2:"Share Family Meals",strip3:"Local-Guided Tours",strip4:"Language Exchange",strip5:"Lifelong Bonds",
+    about_label:"About",about_img:"Our Family Home",about_badge:"100% Real Family",
+    about_h2a:"Completely Different From",about_h2b:"Ordinary Travel",
+    about_lead:"Not a hotel check-in and tourist spots. You sleep in our home, share our meals, and live our daily life together.",
+    feat1_h:"Share Real Daily Life",feat1_p:"Early morning markets, family cooking, neighborhood walks — the local life no guidebook covers.",
+    feat2_h:"Pre-Trip Matching",feat2_p:"We match you with the most compatible host family based on your interests, personality, and schedule.",
+    feat3_h:"Safe & Trustworthy",feat3_p:"All host families are personally verified, with a pre-trip video call so you're comfortable before you arrive.",
+    feat4_h:"Two-Way Korea ↔ Thailand",feat4_p:"Our Bangkok family hosts Korean travelers, and we also connect Thai visitors with Korean host families.",
+    fam_label:"Our Family",fam_h2a:"Meet Your",fam_h2b:"Host Family",
+    fam_p1:"We're a family based in Bangkok, Thailand. Mom, my brother, and I welcome travelers with open arms — not as guests, but as family.",
+    fam_p2:"We communicate in Thai, Korean, and English to make your travel experience truly special and unforgettable.",
+    mem1_name:"Mom",mem1_role:"Host · Head Chef",mem1_p:"A Bangkok local for 50 years. She welcomes every guest like family with homemade Thai food and genuine warmth.",
+    mem2_name:"My Brother",mem2_role:"Guide · Local Expert",mem2_p:"He knows Bangkok's hidden gems and local spots inside out. He'll take you on a real Thai culture adventure.",
+    mem3_name:"Me (Host)",mem3_role:"Coordinator · Interpreter",mem3_p:"I bridge Thai, Korean, and English — managing everything from matching to the journey itself.",
+    how_label:"How It Works",how_h2a:"4 Simple Steps to",how_h2b:"Your Family Journey",how_lead:"It's not complicated. We're with you from inquiry to journey's end.",
+    step1_h:"Inquire & Match",step1_p:"Fill out the booking form and we'll reach out within 48 hours.",
+    step2_h:"Pre-Trip Meeting",step2_p:"A video call to get to know each other before you arrive.",
+    step3_h:"Become Family",step3_p:"The moment you step into our home, you're family.",
+    step4_h:"A Bond That Lasts",step4_p:"The trip ends, but the relationship doesn't.",
+    gal_label:"Gallery & Reviews",gal_h2a:"Moments",gal_h2b:"We've Shared",gal_lead:"Memories captured in photos. Next, it's your turn.",
+    gal1:"Family Table",gal2:"Dawn Market",gal3:"Local Tour",gal4:"Cultural Exploration",gal5:"Cooking Class",
+    rev_label:"Real Guest Reviews",
+    rev1_p:'I\'ve been to Thailand dozens of times, but this was the first time I experienced the "real Thailand."',rev1_name:"1",rev1_loc:"Seoul · Visited Thailand",
+    rev2_p:"At first I felt awkward, but after that first dinner I completely felt like family.",rev2_name:"2",rev2_loc:"Busan · Visited Thailand",
+    rev3_p:"They taught me Korean and we cooked Korean food together. Real cultural exchange! Coming back next year!",rev3_name:"3",rev3_loc:"Bangkok · Visited Korea",
+    book_label:"Book & Inquire",book_h2a:"Start Your",book_h2b:"Family Journey",book_lead:"Fill out the form below and we'll get back to you within 48 hours!",
+    opt1_h:"Thai Family Homestay (Bangkok)",opt1_p:"Experience Bangkok daily life with our family.",
+    opt2_h:"Korean Family Homestay Matching",opt2_p:"Host family matching for Thai travelers visiting Korea.",
+    opt3_h:"General Inquiry",opt3_p:"Want to know more? Just ask!",
+    form_title:"Inquire & Book",form_sub:"Fill in all fields for a faster response.",
+    lbl_name:"Name *",lbl_nation:"Nationality",lbl_email:"Email *",lbl_msg:"KakaoTalk / LINE / WhatsApp",lbl_date:"Preferred Travel Date",lbl_ppl:"Number of People",lbl_inquiry:"Message",
+    opt_select:"Select",opt_other:"Other",btn_submit:"Send Request →",form_note:"📩 Reply within 48 hours",
+    success_h:"Request Sent!",success_p:"We'll be in touch within 48 hours. Can't wait to welcome you as family 🏡",
+    cta_h:'"Not a Tourist. Family."',cta_p:"Apply now and get your first matching consultation for free.",cta_btn:"Free Consultation",
+    footer_desc:"Travel where you become a family member. Korea ↔ Thailand Cultural Exchange",
+    ft_service:"Services",ft_contact:"Contact",ft_booking:"Booking Inquiry",footer_copy:"© 2025 Come Home · All rights reserved"
+  }
+};
+
+let currentLang='ko';
+
+function setLang(lang){
+  currentLang=lang;
+  const t=T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined) el.textContent=t[k];
+  });
+  document.documentElement.lang=lang==='ko'?'ko':lang==='th'?'th':'en';
+  document.body.style.fontFamily=lang==='th'?"'Noto Sans Thai','Noto Sans KR',sans-serif":"'Noto Sans KR','Noto Sans Thai',sans-serif";
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',['ko','th','en'][i]===lang));
+}
+
+// Nav scroll
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>20));
+
+// Burger
+const burger=document.getElementById('burger'),menu=document.getElementById('mobileMenu');
+let open=false;
+burger.addEventListener('click',()=>{
+  open=!open;menu.classList.toggle('open',open);
+  const s=burger.querySelectorAll('span');
+  s[0].style.transform=open?'rotate(45deg) translate(5px,5px)':'';
+  s[1].style.opacity=open?'0':'1';
+  s[2].style.transform=open?'rotate(-45deg) translate(5px,-5px)':'';
+});
+function closeMobile(){open=false;menu.classList.remove('open');burger.querySelectorAll('span').forEach(s=>{s.style.transform='';s.style.opacity='1';})}
+
+// Booking option
+function selectOption(el){document.querySelectorAll('.booking-option').forEach(o=>o.classList.remove('active'));el.classList.add('active')}
+
+// Form submit
+
+// function handleSubmit(e){
+//   e.preventDefault();
+//   const f=document.getElementById('bookingForm'),s=document.getElementById('formSuccess');
+//   f.style.cssText='opacity:0;transform:scale(0.96);transition:all .3s';
+//   setTimeout(()=>{f.style.display='none';s.style.display='block';s.style.opacity='0';s.style.transition='opacity .5s';setTimeout(()=>{s.style.opacity='1';setLang(currentLang)},50)},300);
+// }
+
+// Scroll reveal
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll('.sr').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
