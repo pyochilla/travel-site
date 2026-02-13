@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="여행자가 가족의 일원이 되는 특별한 문화 교류 여행 — 한국 ↔ 태국">
+<title>우리 집에 오세요 · 가족이 되는 여행</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+:root {
+  --cream:       #F7F1E8;
+  --warm:        #E8D5B0;
+  --parchment:   #EDE4D3;
+  --terracotta:  #C1540C;
+  --gold:        #BF9540;
+  --deep:        #1A1108;
+  --muted:       #6B5C3E;
+  --green:       #2A4A12;
+  --white:       #FDFAF5;
+  --nav-h:       68px;
+}
+
+/* ─────────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 300;
+  background: var(--cream);
+  color: var(--deep);
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a  { text-decoration: none; color: inherit; }
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  background: rgba(247,241,232,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(191,149,64,0.2);
+  transition: box-shadow 0.3s;
+}
+
+nav.scrolled { box-shadow: 0 4px 32px rgba(26,17,8,0.08); }
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--deep);
+  letter-spacing: 0.5px;
+}
+
+.nav-logo span { color: var(--terracotta); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--terracotta); }
+
+.nav-cta {
+  background: var(--terracotta);
+  color: var(--white) !important;
+  padding: 10px 22px;
+  border-radius: 2px;
+  font-weight: 500 !important;
+  transition: background 0.2s !important;
+}
+
+.nav-cta:hover { background: #a04209 !important; color: var(--white) !important; }
+
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-burger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--deep);
+  transition: all 0.3s;
+}
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+#home {
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-text {
+  padding: 80px 6% 80px 8%;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: riseIn 0.8s 0.3s forwards;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1.05;
+  font-weight: 700;
+  color: var(--deep);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: riseIn 0.9s 0.5s forwards;
+}
+
+.hero-text h1 em {
+  font-style: italic;
+  color: var(--terracotta);
+  display: block;
+}
+
+.hero-text p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--muted);
+  max-width: 440px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: riseIn 0.9s 0.7s forwards;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: riseIn 0.9s 0.9s forwards;
+}
+
+.btn-primary {
+  background: var(--terracotta);
+  color: var(--white);
+  padding: 14px 32px;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:hover { background: #a04209; transform: translateY(-2px); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--deep);
+  padding: 14px 32px;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+  border: 1px solid var(--warm);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.btn-secondary:hover { border-color: var(--terracotta); transform: translateY(-2px); }
+
+.hero-flags {
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: riseIn 0.9s 1.1s forwards;
+}
+
+.flag-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--white);
+  border: 1px solid var(--warm);
+  border-radius: 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.flag-badge span { font-size: 18px; }
+
+.hero-divider { color: var(--warm); font-size: 20px; }
+
+/* HERO visual */
+.hero-visual {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-visual-inner {
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(180deg, rgba(26,17,8,0.0) 60%, rgba(26,17,8,0.5) 100%),
+    linear-gradient(135deg, #e8c99a 0%, #c4956a 40%, #7a4f2e 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+}
+
+/* Decorative photo placeholders as art */
+.photo-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+}
+
+.photo-cell {
+  overflow: hidden;
+}
+
+.photo-cell:nth-child(1) { background: linear-gradient(135deg, #d4956a, #b06840); }
+.photo-cell:nth-child(2) { background: linear-gradient(135deg, #7a9e4e, #4a7a2e); }
+.photo-cell:nth-child(3) { background: linear-gradient(135deg, #4a6fa5, #2a4f85); }
+.photo-cell:nth-child(4) { background: linear-gradient(135deg, #c4805a, #984030); }
+
+.photo-cell-label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.photo-cell-label .icon { font-size: 28px; opacity: 0.7; }
+
+.hero-caption {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  right: 32px;
+  color: white;
+  z-index: 2;
+}
+
+.hero-caption p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.5;
+}
+
+.hero-caption small {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 4px;
+  display: block;
+}
+
+/* ─────────────────────────────────────────
+   STRIP
+───────────────────────────────────────── */
+.strip {
+  background: var(--deep);
+  padding: 20px 8%;
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.strip-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(247,241,232,0.6);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.strip-item span { font-size: 20px; }
+
+/* ─────────────────────────────────────────
+   SECTION BASE
+───────────────────────────────────────── */
+.section {
+  padding: 100px 8%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--deep);
+  margin-bottom: 20px;
+}
+
+.section-title em { color: var(--terracotta); font-style: italic; }
+
+.section-lead {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--muted);
+  max-width: 580px;
+  margin-bottom: 56px;
+}
+
+.divider-line {
+  border: none;
+  border-top: 1px solid var(--warm);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────
+   ABOUT / SERVICE
+───────────────────────────────────────── */
+#about {
+  background: var(--white);
+}
+
+#about .section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-main-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: linear-gradient(160deg, #c4956a 0%, #7a4f2e 60%, #3a2010 100%);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.about-main-img .big-icon { font-size: 48px; opacity: 0.6; }
+
+.about-badge {
+  position: absolute;
+  bottom: -24px;
+  right: -24px;
+  background: var(--terracotta);
+  color: white;
+  padding: 20px 24px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.about-badge .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-style: italic;
+  display: block;
+  line-height: 1;
+}
+
+.about-badge small {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.about-text {}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.feature {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--parchment);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.feature h4 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--deep);
+}
+
+.feature p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+/* ─────────────────────────────────────────
+   FAMILY
+───────────────────────────────────────── */
+#family {}
+
+.family-intro {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.family-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 64px;
+}
+
+.family-card {
+  background: var(--white);
+  border: 1px solid var(--warm);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.family-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 56px rgba(26,17,8,0.10);
+}
+
+.family-card-img {
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  color: rgba(255,255,255,0.5);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.family-card-img .icon { font-size: 40px; opacity: 0.6; }
+.card-img-1 { background: linear-gradient(160deg, #c4956a, #7a4f2e); }
+.card-img-2 { background: linear-gradient(160deg, #7a9e4e, #3a6e1e); }
+.card-img-3 { background: linear-gradient(160deg, #c4805a, #844030); }
+
+.family-card-body { padding: 22px 20px; }
+
+.family-card-body h3 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--deep);
+}
+
+.family-card-role {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.family-card-body p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+/* ─────────────────────────────────────────
+   HOW IT WORKS
+───────────────────────────────────────── */
+#how {
+  background: var(--deep);
+  padding: 100px 0;
+}
+
+#how .section {
+  max-width: 1200px;
+}
+
+#how .section-label { color: rgba(191,149,64,0.8); }
+#how .section-title { color: var(--cream); }
+#how .section-lead  { color: rgba(247,241,232,0.6); }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 64px;
+  position: relative;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: rgba(191,149,64,0.3);
+  z-index: 0;
+}
+
+.step {
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.step-num {
+  width: 56px;
+  height: 56px;
+  background: var(--terracotta);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: white;
+  margin: 0 auto 24px;
+  border: 3px solid var(--deep);
+}
+
+.step h4 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+
+.step p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(247,241,232,0.5);
+}
+
+/* ─────────────────────────────────────────
+   GALLERY / REVIEWS
+───────────────────────────────────────── */
+#gallery {}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 240px 240px;
+  gap: 8px;
+  margin-bottom: 80px;
+}
+
+.gallery-item {
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  color: rgba(255,255,255,0.4);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.gallery-item:hover { opacity: 0.85; }
+.gallery-item .gal-icon { font-size: 28px; opacity: 0.5; }
+.gallery-item:nth-child(1) { grid-row: 1 / 3; background: linear-gradient(160deg, #d4a070, #8a5030); }
+.gallery-item:nth-child(2) { background: linear-gradient(160deg, #7ab870, #3a8830); }
+.gallery-item:nth-child(3) { background: linear-gradient(160deg, #70a0c4, #3060a0); }
+.gallery-item:nth-child(4) { background: linear-gradient(160deg, #c4a060, #907020); }
+.gallery-item:nth-child(5) { background: linear-gradient(160deg, #c47060, #904030); }
+
+/* Reviews */
+.reviews-label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.review-card {
+  background: var(--white);
+  border: 1px solid var(--warm);
+  border-radius: 2px;
+  padding: 28px 24px;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.review-card:hover { transform: translateY(-4px); }
+
+.review-card::before {
+  content: '"';
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  color: var(--warm);
+  line-height: 1;
+}
+
+.review-stars {
+  color: var(--gold);
+  font-size: 13px;
+  margin-bottom: 14px;
+  letter-spacing: 2px;
+}
+
+.review-card p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--warm);
+}
+
+.reviewer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.av1 { background: linear-gradient(135deg, #ffd6b0, #ffaa70); }
+.av2 { background: linear-gradient(135deg, #b0d4ff, #70aaff); }
+.av3 { background: linear-gradient(135deg, #d0ffb0, #90e060); }
+
+.reviewer-info strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--deep);
+}
+
+.reviewer-info small {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+/* ─────────────────────────────────────────
+   BOOKING FORM
+───────────────────────────────────────── */
+#booking {
+  background: var(--parchment);
+}
+
+#booking .section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.booking-info {}
+
+.booking-options {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.booking-option {
+  background: var(--white);
+  border: 1px solid var(--warm);
+  border-radius: 2px;
+  padding: 20px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.booking-option:hover { border-color: var(--terracotta); }
+.booking-option.active { border-color: var(--terracotta); background: rgba(193,84,12,0.04); }
+
+.bo-icon { font-size: 24px; flex-shrink: 0; }
+
+.bo-text h4 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--deep);
+  margin-bottom: 4px;
+}
+
+.bo-text p {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* FORM */
+.booking-form {
+  background: var(--white);
+  border: 1px solid var(--warm);
+  border-radius: 2px;
+  padding: 40px 36px;
+}
+
+.booking-form h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--deep);
+  margin-bottom: 8px;
+}
+
+.booking-form .form-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--cream);
+  border: 1px solid var(--warm);
+  border-radius: 2px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  color: var(--deep);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--terracotta);
+  background: var(--white);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 15px;
+  background: var(--terracotta);
+  color: white;
+  border: none;
+  border-radius: 2px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.form-submit:hover { background: #a04209; transform: translateY(-2px); }
+
+.form-note {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+/* Success */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.form-success .success-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.form-success h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--deep);
+  margin-bottom: 10px;
+}
+
+.form-success p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* ─────────────────────────────────────────
+   CTA BANNER
+───────────────────────────────────────── */
+.cta-banner {
+  background: var(--terracotta);
+  padding: 80px 8%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-banner::before {
+  content: '家族';
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 320px;
+  color: rgba(255,255,255,0.05);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cta-banner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 52px);
+  color: white;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.cta-banner p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  max-width: 500px;
+  margin: 0 auto 36px;
+  line-height: 1.8;
+}
+
+.btn-white {
+  background: white;
+  color: var(--terracotta);
+  padding: 14px 36px;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer {
+  background: var(--deep);
+  padding: 60px 8% 32px;
+  color: rgba(247,241,232,0.5);
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 32px;
+}
+
+.footer-brand .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+
+.footer-brand .logo span { color: var(--terracotta); }
+
+.footer-brand p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: rgba(247,241,232,0.45);
+}
+
+.footer-col h5 {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.footer-col ul { list-style: none; }
+
+.footer-col li {
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: rgba(247,241,232,0.45);
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.footer-col li:hover { color: var(--cream); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.social-links {
+  display: flex;
+  gap: 16px;
+}
+
+.social-link {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.social-link:hover {
+  border-color: var(--gold);
+  background: rgba(191,149,64,0.1);
+}
+
+/* ─────────────────────────────────────────
+   MOBILE NAV MENU
+───────────────────────────────────────── */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: var(--cream);
+  border-bottom: 1px solid var(--warm);
+  padding: 24px 8%;
+  z-index: 99;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 8px 32px rgba(26,17,8,0.1);
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+  display: block;
+  padding: 14px 0;
+  font-size: 16px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--warm);
+  letter-spacing: 1px;
+}
+
+.mobile-menu a:last-child { border-bottom: none; }
+
+/* ─────────────────────────────────────────
+   SCROLL REVEAL
+───────────────────────────────────────── */
+.sr {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s, transform 0.7s;
+}
+.sr.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 900px) {
+  #home              { grid-template-columns: 1fr; }
+  .hero-visual       { height: 300px; }
+  #about .section    { grid-template-columns: 1fr; gap: 48px; }
+  .about-badge       { right: 0; }
+  .family-cards      { grid-template-columns: 1fr 1fr; }
+  .steps             { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .steps::before     { display: none; }
+  .gallery-grid      { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-item:nth-child(1) { grid-row: auto; }
+  .reviews-grid      { grid-template-columns: 1fr; }
+  #booking .section  { grid-template-columns: 1fr; gap: 40px; }
+  .footer-top        { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .nav-links         { display: none; }
+  .nav-burger        { display: flex; }
+  .family-intro      { grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media (max-width: 540px) {
+  .family-cards      { grid-template-columns: 1fr; }
+  .steps             { grid-template-columns: 1fr; }
+  .hero-btns         { flex-direction: column; }
+  .form-row          { grid-template-columns: 1fr; }
+  .footer-top        { grid-template-columns: 1fr; }
+  .booking-form      { padding: 28px 20px; }
+  .hero-text         { padding: 48px 6%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">우리 집에 <span>오세요</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">서비스 소개</a></li>
+    <li><a href="#family">우리 가족</a></li>
+    <li><a href="#how">이용 방법</a></li>
+    <li><a href="#gallery">후기</a></li>
+    <li><a href="#booking" class="nav-cta">지금 예약하기</a></li>
+  </ul>
+  <div class="nav-burger" id="burger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"   onclick="closeMobile()">서비스 소개</a>
+  <a href="#family"  onclick="closeMobile()">우리 가족</a>
+  <a href="#how"     onclick="closeMobile()">이용 방법</a>
+  <a href="#gallery" onclick="closeMobile()">후기</a>
+  <a href="#booking" onclick="closeMobile()">지금 예약하기 →</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="home">
+  <div class="hero-text">
+    <div class="hero-tag">한국 ↔ 태국 · 문화 교류 여행</div>
+    <h1>
+      Tourist가 아닌<br>
+      <em>Family Member</em><br>
+      로 여행하세요
+    </h1>
+    <p>낯선 나라에서 진짜 가족의 일원이 되는 경험. 호텔이 아닌 가정에서, 관광이 아닌 일상을 함께합니다.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollTo('#booking')">지금 예약하기</button>
+      <button class="btn-secondary" onclick="scrollTo('#about')">자세히 보기</button>
+    </div>
+    <div class="hero-flags">
+      <div class="flag-badge"><span>🇰🇷</span> 한국 → 태국</div>
+      <div class="hero-divider">·</div>
+      <div class="flag-badge"><span>🇹🇭</span> 태국 → 한국</div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="photo-grid">
+      <div class="photo-cell"><div class="photo-cell-label"><span class="icon">🍜</span>함께하는 식사</div></div>
+      <div class="photo-cell"><div class="photo-cell-label"><span class="icon">🌿</span>현지 시장</div></div>
+      <div class="photo-cell"><div class="photo-cell-label"><span class="icon">🏘️</span>가족의 일상</div></div>
+      <div class="photo-cell"><div class="photo-cell-label"><span class="icon">💫</span>진짜 기억</div></div>
+    </div>
+    <div class="hero-caption">
+      <p>"낯선 사람이 가족이 되는 순간"</p>
+      <small>실제 게스트 경험 기반</small>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRIP ── -->
+<div class="strip">
+  <div class="strip-item"><span>🏠</span> 실제 가정집 숙박</div>
+  <div class="strip-item"><span>🍽️</span> 가족 식탁 함께</div>
+  <div class="strip-item"><span>🗺️</span> 현지인 동행 투어</div>
+  <div class="strip-item"><span>💬</span> 언어 교환</div>
+  <div class="strip-item"><span>❤️</span> 평생 가족 연결</div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="section">
+    <div class="about-visual sr">
+      <div class="about-main-img">
+        <span class="big-icon">🏡</span>
+        <span>우리 가족의 집</span>
+      </div>
+      <div class="about-badge">
+        <span class="num">100%</span>
+        <small>진짜 가족 경험</small>
+      </div>
+    </div>
+    <div class="about-text sr">
+      <span class="section-label">서비스 소개</span>
+      <h2 class="section-title">일반 여행과는<br><em>완전히 다릅니다</em></h2>
+      <p class="section-lead">호텔에서 체크인하고 관광지를 다니는 여행이 아닙니다. 우리 집에서 자고, 우리 밥상을 함께하며, 우리 가족의 하루를 같이 보냅니다.</p>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🌅</div>
+          <div>
+            <h4>진짜 일상을 함께</h4>
+            <p>새벽 시장 방문, 가족 요리, 동네 산책 — 관광책에 없는 진짜 현지 생활을 경험합니다.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🤝</div>
+          <div>
+            <h4>사전 매칭 시스템</h4>
+            <p>여행자의 관심사, 성격, 일정을 고려해 가장 잘 맞는 호스트 가족과 매칭해드립니다.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🛡️</div>
+          <div>
+            <h4>안전하고 신뢰할 수 있는</h4>
+            <p>모든 호스트 가족은 직접 검증하며, 여행 전 사전 화상 미팅으로 서로를 알아가는 시간을 갖습니다.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🌐</div>
+          <div>
+            <h4>한국 ↔ 태국 양방향</h4>
+            <p>태국 방콕의 우리 가족이 직접 한국 여행자를 호스팅하고, 한국을 방문하는 태국인도 연결합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-line">
+
+<!-- ── FAMILY ── -->
+<section id="family">
+  <div class="section">
+    <div class="family-intro sr">
+      <div>
+        <span class="section-label">우리 가족</span>
+        <h2 class="section-title">호스트<br><em>가족 소개</em></h2>
+      </div>
+      <div>
+        <p style="font-size:16px;line-height:1.9;color:var(--muted)">태국 방콕에 살고 있는 우리 가족입니다. 어머니, 남동생, 그리고 제가 함께 여행자들을 맞이합니다. 단순한 숙박이 아닌, 진짜 가족처럼 지내는 경험을 드리고 싶습니다.</p>
+        <p style="font-size:16px;line-height:1.9;color:var(--muted);margin-top:16px">한국어와 태국어, 영어로 소통하며 여러분의 태국 여행을 특별한 기억으로 만들어드립니다.</p>
+      </div>
+    </div>
+    <div class="family-cards">
+      <div class="family-card sr">
+        <div class="family-card-img card-img-1">
+          <span class="icon">👩</span>
+          <span>어머니</span>
+        </div>
+        <div class="family-card-body">
+          <h3>어머니</h3>
+          <span class="family-card-role">호스트 · 요리 담당</span>
+          <p>50년 방콕 토박이. 매일 아침 직접 만드는 태국 요리와 따뜻한 환대로 모든 게스트를 가족처럼 맞이합니다.</p>
+        </div>
+      </div>
+      <div class="family-card sr">
+        <div class="family-card-img card-img-2">
+          <span class="icon">🧑</span>
+          <span>남동생</span>
+        </div>
+        <div class="family-card-body">
+          <h3>남동생</h3>
+          <span class="family-card-role">가이드 · 현지 전문가</span>
+          <p>방콕의 숨겨진 맛집과 현지인 명소를 꿰뚫고 있습니다. 게스트와 함께 진짜 태국 문화를 탐험합니다.</p>
+        </div>
+      </div>
+      <div class="family-card sr">
+        <div class="family-card-img card-img-3">
+          <span class="icon">👤</span>
+          <span>호스트</span>
+        </div>
+        <div class="family-card-body">
+          <h3>나 (호스트)</h3>
+          <span class="family-card-role">코디네이터 · 통역</span>
+          <p>한국어·태국어·영어로 소통하며 매칭부터 여행까지 전 과정을 함께합니다. 가족이 되는 여행의 연결고리입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section id="how">
+  <div class="section sr">
+    <span class="section-label">이용 방법</span>
+    <h2 class="section-title">4단계로 시작하는<br><em style="color:var(--warm)">가족 여행</em></h2>
+    <p class="section-lead">복잡하지 않습니다. 문의부터 여행까지, 우리가 함께합니다.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>문의 & 매칭</h4>
+        <p>예약 폼을 작성하면 48시간 내에 연락드립니다. 여러분과 가장 잘 맞는 가족을 찾아드립니다.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>사전 미팅</h4>
+        <p>화상 통화로 서로를 먼저 알아가는 시간. 어색함 없이 출발할 수 있습니다.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>가족이 되는 여행</h4>
+        <p>우리 집에 도착하는 순간부터 여러분은 손님이 아닌 가족입니다.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>평생의 인연</h4>
+        <p>여행이 끝나도 관계는 계속됩니다. 많은 분들이 매년 다시 찾아옵니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY & REVIEWS ── -->
+<section id="gallery">
+  <div class="section">
+    <span class="section-label">갤러리 & 후기</span>
+    <h2 class="section-title">함께한 <em>순간들</em></h2>
+    <p class="section-lead">사진으로 담은 우리의 기억들. 다음은 여러분의 차례입니다.</p>
+
+    <div class="gallery-grid sr">
+      <div class="gallery-item">
+        <span class="gal-icon">🍜</span>가족 식탁
+      </div>
+      <div class="gallery-item">
+        <span class="gal-icon">🌿</span>새벽 시장
+      </div>
+      <div class="gallery-item">
+        <span class="gal-icon">🛺</span>현지 투어
+      </div>
+      <div class="gallery-item">
+        <span class="gal-icon">🏯</span>문화 탐방
+      </div>
+      <div class="gallery-item">
+        <span class="gal-icon">🍳</span>요리 클래스
+      </div>
+    </div>
+
+    <p class="reviews-label">실제 게스트 후기</p>
+    <div class="reviews-grid">
+      <div class="review-card sr">
+        <div class="review-stars">★★★★★</div>
+        <p>태국에 여행을 수십 번 갔지만, 이번 처음으로 "진짜 태국"을 경험했습니다. 어머니가 해주신 새벽 국물 요리가 아직도 생각납니다.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar av1">😊</div>
+          <div class="reviewer-info">
+            <strong>김지수</strong>
+            <small>서울 · 태국 방문</small>
+          </div>
+        </div>
+      </div>
+      <div class="review-card sr">
+        <div class="review-stars">★★★★★</div>
+        <p>처음엔 낯선 집에서 자는 게 어색했어요. 근데 첫 날 저녁 식사 이후로는 완전히 가족이 된 느낌이었습니다. 평생 기억할 여행이에요.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar av2">🙂</div>
+          <div class="reviewer-info">
+            <strong>박민호</strong>
+            <small>부산 · 태국 방문</small>
+          </div>
+        </div>
+      </div>
+      <div class="review-card sr">
+        <div class="review-stars">★★★★★</div>
+        <p>한국어도 가르쳐주고, 한국 음식도 함께 만들어 봤어요. 단순한 여행이 아니라 진짜 문화 교류였습니다. 내년에도 꼭 오고 싶어요!</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar av3">😄</div>
+          <div class="reviewer-info">
+            <strong>Nana K.</strong>
+            <small>방콕 · 한국 방문</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKING ── -->
+<section id="booking">
+  <div class="section">
+    <div class="booking-info sr">
+      <span class="section-label">예약 & 문의</span>
+      <h2 class="section-title">가족이 되는<br><em>여행 시작하기</em></h2>
+      <p class="section-lead">아래 폼을 작성해주시면 48시간 내로 연락드립니다. 궁금한 점은 뭐든 물어보세요!</p>
+
+      <div class="booking-options">
+        <div class="booking-option active" onclick="selectOption(this)">
+          <div class="bo-icon">🇹🇭</div>
+          <div class="bo-text">
+            <h4>태국 가족 홈스테이 (방콕)</h4>
+            <p>우리 가족과 함께하는 방콕 현지 생활. 새벽 시장, 가족 요리, 현지 탐방 포함.</p>
+          </div>
+        </div>
+        <div class="booking-option" onclick="selectOption(this)">
+          <div class="bo-icon">🇰🇷</div>
+          <div class="bo-text">
+            <h4>한국 가족 홈스테이 매칭</h4>
+            <p>태국에서 한국을 방문하는 분을 위한 한국 호스트 가족 매칭 서비스.</p>
+          </div>
+        </div>
+        <div class="booking-option" onclick="selectOption(this)">
+          <div class="bo-icon">✉️</div>
+          <div class="bo-text">
+            <h4>일반 문의</h4>
+            <p>서비스에 대해 더 알고 싶으시거나 맞춤 일정을 원하시면 문의해 주세요.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="booking-form sr" id="bookingFormContainer">
+      <h3>문의 & 예약 신청</h3>
+      <p class="form-sub">모든 항목을 입력해주시면 더 빠른 안내가 가능합니다.</p>
+
+      <form id="bookingForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>이름 / Name *</label>
+            <input type="text" placeholder="홍길동" required>
+          </div>
+          <div class="form-group">
+            <label>국적</label>
+            <select>
+              <option value="">선택해주세요</option>
+              <option value="kr">🇰🇷 한국</option>
+              <option value="th">🇹🇭 태국</option>
+              <option value="other">기타</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>이메일 / Email *</label>
+          <input type="email" placeholder="example@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>카카오톡 ID / LINE / WhatsApp</label>
+          <input type="text" placeholder="연락 가능한 메신저 ID">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>희망 방문 시기</label>
+            <input type="month" min="2025-01">
+          </div>
+          <div class="form-group">
+            <label>인원 수</label>
+            <select>
+              <option value="1">1명</option>
+              <option value="2">2명</option>
+              <option value="3">3명</option>
+              <option value="4+">4명 이상</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>문의 내용</label>
+          <textarea placeholder="궁금한 점이나 희망하시는 경험을 자유롭게 적어주세요. (예: 요리 배우기, 시장 투어, 언어 교환 등)"></textarea>
+        </div>
+        <button type="submit" class="form-submit">신청 보내기 →</button>
+        <p class="form-note">📩 48시간 내 답변 · 개인정보는 예약 목적으로만 사용됩니다</p>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">🎉</div>
+        <h4>신청이 완료되었습니다!</h4>
+        <p>48시간 내로 이메일 또는 메신저로 연락드리겠습니다.<br>가족이 되는 여행을 함께하게 되어 기대됩니다 🏡</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div class="cta-banner sr">
+  <h2>"Tourist가 아닌 Family로"</h2>
+  <p>지금 신청하시면 첫 매칭 상담을 무료로 받으실 수 있습니다.</p>
+  <button class="btn-white" onclick="scrollTo('#booking')">무료 상담 신청하기</button>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">우리 집에 <span>오세요</span></div>
+      <p>여행자가 가족의 일원이 되는<br>한국 ↔ 태국 문화 교류 여행 플랫폼</p>
+    </div>
+    <div class="footer-col">
+      <h5>서비스</h5>
+      <ul>
+        <li onclick="scrollTo('#about')">서비스 소개</li>
+        <li onclick="scrollTo('#family')">우리 가족</li>
+        <li onclick="scrollTo('#how')">이용 방법</li>
+        <li onclick="scrollTo('#gallery')">후기</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>문의</h5>
+      <ul>
+        <li>예약 문의</li>
+        <li>카카오톡</li>
+        <li>LINE</li>
+        <li>WhatsApp</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>SNS</h5>
+      <ul>
+        <li>인스타그램</li>
+        <li>틱톡</li>
+        <li>유튜브</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 우리 집에 오세요 · All rights reserved</span>
+    <div class="social-links">
+      <div class="social-link">📸</div>
+      <div class="social-link">🎵</div>
+      <div class="social-link">▶️</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── NAV SCROLL ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+/* ── BURGER MENU ── */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+
+burger.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobileMenu.classList.toggle('open', menuOpen);
+  burger.querySelectorAll('span')[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px, 5px)' : '';
+  burger.querySelectorAll('span')[1].style.opacity   = menuOpen ? '0' : '1';
+  burger.querySelectorAll('span')[2].style.transform = menuOpen ? 'rotate(-45deg) translate(5px, -5px)' : '';
+});
+
+function closeMobile() {
+  menuOpen = false;
+  mobileMenu.classList.remove('open');
+  burger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = '1'; });
+}
+
+/* ── SMOOTH SCROLL ── */
+function scrollTo(id) {
+  document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ── BOOKING OPTION ── */
+function selectOption(el) {
+  document.querySelectorAll('.booking-option').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ── FORM SUBMIT ── */
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('bookingForm');
+  const success = document.getElementById('formSuccess');
+  form.style.opacity = '0';
+  form.style.transform = 'scale(0.95)';
+  form.style.transition = 'all 0.3s';
+  setTimeout(() => {
+    form.style.display = 'none';
+    success.style.display = 'block';
+    success.style.opacity = '0';
+    success.style.transition = 'opacity 0.5s';
+    setTimeout(() => success.style.opacity = '1', 50);
+  }, 300);
+}
+
+/* ── SCROLL REVEAL ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+      revealObserver.unobserve(el.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.sr').forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
